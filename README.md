@@ -1,8 +1,8 @@
 # dji-cloud-api 
 
-## C# / .NET 6.0 LTS
-## DDD
-## CQRS
+C# / .NET 6.0 LTS
+DDD
+CQRS / MediatorR
 
 # DJI Cloud Api .NET 6.0
 
