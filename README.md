@@ -1,5 +1,9 @@
 # dji-cloud-api 
 
+C# / .NET 6.0 LTS
+DDD
+CQRS
+
 # DJI Cloud Api .NET 6.0
 
 ## What is the DJI Cloud API?
