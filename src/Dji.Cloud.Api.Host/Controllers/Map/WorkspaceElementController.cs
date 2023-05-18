@@ -27,6 +27,36 @@ public class WorkspaceElementController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{workspaceId}/elements/{elementId}")]
+    public async Task<IActionResult> UpdateElementAsync([FromRoute] string workspaceId, [FromRoute] string elementId)
+    {
+        // TODO:
+
+        return Ok();
+    }
+
+    [HttpDelete("{workspaceId}/elements/{elementId}")]
+    public async Task<IActionResult> DeleteElementAsync([FromRoute] string workspaceId, [FromRoute] string elementId)
+    {
+        // TODO:
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Delete all the element information in this group based on the group id.
+    /// </summary>
+    /// <param name="workspaceId">the workspace id</param>
+    /// <param name="groupId">the group id</param>
+    /// <returns></returns>
+    [HttpDelete("{workspaceId}/element-groups/{groupId}/elements")]
+    public async Task<IActionResult> DeleteElementsAsync([FromRoute] string workspaceId, [FromRoute] string groupId)
+    {
+        // TODO:
+
+        return Ok();
+    }
+
 //        @Autowired
 //    private IWorkspaceElementService elementService;
 
