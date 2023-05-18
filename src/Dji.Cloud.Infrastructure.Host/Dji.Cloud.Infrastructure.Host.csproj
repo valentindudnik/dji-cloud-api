@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dji.Cloud.Application.Abstracts\Dji.Cloud.Application.Abstracts.csproj" />
+    <ProjectReference Include="..\Dji.Cloud.Application\Dji.Cloud.Application.csproj" />
+    <ProjectReference Include="..\Dji.Cloud.Infrastructure.MySql\Dji.Cloud.Infrastructure.MySql.csproj" />
+    <ProjectReference Include="..\Dji.Cloud.Infrastructure\Dji.Cloud.Infrastructure.MsSql.csproj" />
+  </ItemGroup>
+
+</Project>
