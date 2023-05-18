@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum WaylineJobStatusEnum
+public enum WaylineJobStatuses
 {
     [Display(Name = "UNKNOWN"),
      EnumMember(Value = "true")]

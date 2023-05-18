@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum WaylineTemplateTypeEnum
+public enum WaylineTemplateTypes
 {
     [Display(Name = "WAYPOINT"),
      EnumMember(Value = "WAYPOINT")]

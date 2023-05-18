@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum OssTypeEnum
+public enum OssTypes
 {
     [Display(Name = "Ali", Description = "Ali"),
      EnumMember(Value = "Ali")]

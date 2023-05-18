@@ -67,7 +67,7 @@ public interface IWaylineJobService
     /// <param name="jobIds">job ids</param>
     /// <param name="status">status</param>
     /// <returns></returns>
-    Task<IEnumerable<WaylineJob>> GetJobsByConditionsAsync(string workspaceId, IEnumerable<string> jobIds, WaylineJobStatusEnum status);
+    Task<IEnumerable<WaylineJob>> GetJobsByConditionsAsync(string workspaceId, IEnumerable<string> jobIds, WaylineJobStatuses status);
 
     /// <summary>
     /// Query job information based on job id.

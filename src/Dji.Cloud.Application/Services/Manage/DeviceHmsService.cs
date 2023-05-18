@@ -80,35 +80,6 @@ public class DeviceHmsService : IDeviceHmsService
     //}
 
     //@Override
-    //public PaginationData<DeviceHmsDTO> getDeviceHmsByParam(DeviceHmsQueryParam param)
-    //{
-    //    LambdaQueryWrapper<DeviceHmsEntity> queryWrapper = new LambdaQueryWrapper<DeviceHmsEntity>()
-    //            .and(wrapper->param.getDeviceSn().forEach(sn->wrapper.eq(DeviceHmsEntity::getSn, sn).or()))
-    //            .between(param.getBeginTime() != null && param.getEndTime() != null,
-    //                    DeviceHmsEntity::getCreateTime, param.getBeginTime(), param.getEndTime())
-    //            .eq(param.getUpdateTime() != null, DeviceHmsEntity::getUpdateTime, param.getUpdateTime())
-    //            .eq(param.getLevel() != null, DeviceHmsEntity::getLevel, param.getLevel())
-    //            .like(StringUtils.hasText(param.getMessage()) &&
-    //                            HmsEnum.MessageLanguage.ZH.getLanguage().equals(param.getLanguage()),
-    //                    DeviceHmsEntity::getMessageZh, param.getMessage())
-    //            .like(StringUtils.hasText(param.getMessage()) &&
-    //                            HmsEnum.MessageLanguage.EN.getLanguage().equals(param.getLanguage()),
-    //                    DeviceHmsEntity::getMessageEn, param.getMessage())
-    //            .orderByDesc(DeviceHmsEntity::getCreateTime);
-    //    if (param.getPage() == null || param.getPageSize() == null)
-    //    {
-    //        param.setPage(1L);
-    //        param.setPageSize(Long.valueOf(mapper.selectCount(queryWrapper)));
-    //    }
-
-    //    Page<DeviceHmsEntity> pagination = mapper.selectPage(new Page<>(param.getPage(), param.getPageSize()), queryWrapper);
-
-    //    List<DeviceHmsDTO> deviceHmsList = pagination.getRecords().stream().map(this::entity2Dto).collect(Collectors.toList());
-
-    //    return new PaginationData<DeviceHmsDTO>(deviceHmsList, new Pagination(pagination));
-    //}
-
-    //@Override
     //public void updateUnreadHms(String deviceSn)
     //{
     //    mapper.update(DeviceHmsEntity.builder().updateTime(System.currentTimeMillis()).build(),
@@ -274,13 +245,45 @@ public class DeviceHmsService : IDeviceHmsService
     //    }
     //    return list;
     //}
+
+    //@Override
+    //public PaginationData<DeviceHmsDTO> getDeviceHmsByParam(DeviceHmsQueryParam param)
+    //{
+    //    LambdaQueryWrapper<DeviceHmsEntity> queryWrapper = new LambdaQueryWrapper<DeviceHmsEntity>()
+    //            .and(wrapper->param.getDeviceSn().forEach(sn->wrapper.eq(DeviceHmsEntity::getSn, sn).or()))
+    //            .between(param.getBeginTime() != null && param.getEndTime() != null,
+    //                    DeviceHmsEntity::getCreateTime, param.getBeginTime(), param.getEndTime())
+    //            .eq(param.getUpdateTime() != null, DeviceHmsEntity::getUpdateTime, param.getUpdateTime())
+    //            .eq(param.getLevel() != null, DeviceHmsEntity::getLevel, param.getLevel())
+    //            .like(StringUtils.hasText(param.getMessage()) &&
+    //                            HmsEnum.MessageLanguage.ZH.getLanguage().equals(param.getLanguage()),
+    //                    DeviceHmsEntity::getMessageZh, param.getMessage())
+    //            .like(StringUtils.hasText(param.getMessage()) &&
+    //                            HmsEnum.MessageLanguage.EN.getLanguage().equals(param.getLanguage()),
+    //                    DeviceHmsEntity::getMessageEn, param.getMessage())
+    //            .orderByDesc(DeviceHmsEntity::getCreateTime);
+    //    if (param.getPage() == null || param.getPageSize() == null)
+    //    {
+    //        param.setPage(1L);
+    //        param.setPageSize(Long.valueOf(mapper.selectCount(queryWrapper)));
+    //    }
+
+    //    Page<DeviceHmsEntity> pagination = mapper.selectPage(new Page<>(param.getPage(), param.getPageSize()), queryWrapper);
+
+    //    List<DeviceHmsDTO> deviceHmsList = pagination.getRecords().stream().map(this::entity2Dto).collect(Collectors.toList());
+
+    //    return new PaginationData<DeviceHmsDTO>(deviceHmsList, new Pagination(pagination));
+    //}
+
     public async Task<PaginationResponse<DeviceHms>> GetDeviceHmsAsync(string workspaceId, DeviceHmsQueryRequest request)
     {
-        throw new NotImplementedException();
+        // TODO:
+
+        return null;
     }
 
     public async Task UpdateUnreadHmsAsync(string serialNumber)
     {
-        throw new NotImplementedException();
+        // TODO:
     }
 }

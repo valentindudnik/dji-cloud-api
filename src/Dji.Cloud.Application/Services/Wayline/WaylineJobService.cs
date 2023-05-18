@@ -566,7 +566,7 @@ public class WaylineJobService : IWaylineJobService
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<WaylineJob>> GetJobsByConditionsAsync(string workspaceId, IEnumerable<string> jobIds, WaylineJobStatusEnum status)
+    public Task<IEnumerable<WaylineJob>> GetJobsByConditionsAsync(string workspaceId, IEnumerable<string> jobIds, WaylineJobStatuses status)
     {
         throw new NotImplementedException();
     }

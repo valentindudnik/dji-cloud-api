@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum ElementTypeEnum
+public enum ElementTypes
 {
     [Display(Name = "UNKNOWN"),
      EnumMember(Value = "UNKNOWN")]

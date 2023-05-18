@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum MediaMethodEnum
+public enum MediaMethods
 {
     [Display(Name = "NONE"),
      EnumMember(Value = "None")]

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum WaylineTaskTypeEnum
+public enum WaylineTaskTypes
 {
     [Display(Name = "IMMEDIATE"),
      EnumMember(Value = "IMMEDIATE")]

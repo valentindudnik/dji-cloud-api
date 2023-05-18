@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Dji.Cloud.Domain.Enums;
 
 [Serializable]
-public enum WaylineMethodEnum
+public enum WaylineMethods
 {
     [Display(Name = "FLIGHT_TASK_PREPARE"),
      EnumMember(Value = "flighttask_prepare")]

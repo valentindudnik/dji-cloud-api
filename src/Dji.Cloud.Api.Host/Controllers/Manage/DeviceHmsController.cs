@@ -49,7 +49,7 @@ public class DeviceHmsController : ControllerBase
      ProducesResponseType(StatusCodes.Status400BadRequest),
      ProducesResponseType(StatusCodes.Status404NotFound),
      ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateReadHmsByDeviceSerialNumberAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
+    public async Task<IActionResult> UpdateUnreadHmsAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
     {
         await _service.UpdateUnreadHmsAsync(serialNumber);
 
