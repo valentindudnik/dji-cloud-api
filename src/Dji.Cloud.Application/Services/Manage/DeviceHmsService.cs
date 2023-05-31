@@ -1,12 +1,31 @@
-﻿using Dji.Cloud.Application.Abstracts.Interfaces.Manage;
+﻿using AutoMapper;
+using Dji.Cloud.Application.Abstracts.Interfaces.Manage;
 using Dji.Cloud.Application.Abstracts.Requests.Manage;
 using Dji.Cloud.Application.Abstracts.Responses.Common;
 using Dji.Cloud.Domain.Manage;
+using Dji.Cloud.Domain.Redis;
+using Dji.Cloud.Infrastructure.Abstracts.Entities.Manage;
+using Dji.Cloud.Infrastructure.Abstracts.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Dji.Cloud.Application.Services.Manage;
 
 public class DeviceHmsService : IDeviceHmsService
 {
+    private readonly IGenericRepository<DeviceHmsEntity> _deviceHmsGenericRepository;
+
+    private readonly IMapper _mapper;
+    private readonly ILogger<DeviceHmsService> _logger;
+
+    public DeviceHmsService(IGenericRepository<DeviceHmsEntity> deviceHmsGenericRepository, IMapper mapper, ILogger<DeviceHmsService> logger)
+    {
+        _deviceHmsGenericRepository = deviceHmsGenericRepository;
+
+        _mapper = mapper;
+        _logger = logger;
+    }
+
     //@Autowired
     //private IDeviceHmsMapper mapper;
 
@@ -77,39 +96,6 @@ public class DeviceHmsService : IDeviceHmsService
     //            .data(TelemetryDTO.< List < DeviceHmsDTO >> builder().sn(sn).host(unReadList).build())
     //            .timestamp(System.currentTimeMillis())
     //            .build());
-    //}
-
-    //@Override
-    //public void updateUnreadHms(String deviceSn)
-    //{
-    //    mapper.update(DeviceHmsEntity.builder().updateTime(System.currentTimeMillis()).build(),
-    //            new LambdaUpdateWrapper<DeviceHmsEntity>()
-    //                    .eq(DeviceHmsEntity::getSn, deviceSn)
-    //                    .eq(DeviceHmsEntity::getUpdateTime, 0L));
-    //    // Delete unread messages cached in redis.
-    //    RedisOpsUtils.del(RedisConst.HMS_PREFIX + deviceSn);
-    //}
-
-    //private DeviceHmsDTO entity2Dto(DeviceHmsEntity entity)
-    //{
-    //    if (entity == null)
-    //    {
-    //        return null;
-    //    }
-    //    return DeviceHmsDTO.builder()
-    //            .bid(entity.getBid())
-    //            .tid(entity.getTid())
-    //            .createTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(entity.getCreateTime()), ZoneId.systemDefault()))
-    //            .updateTime(entity.getUpdateTime().intValue() == 0 ?
-    //                    null : LocalDateTime.ofInstant(Instant.ofEpochMilli(entity.getUpdateTime()), ZoneId.systemDefault()))
-    //            .sn(entity.getSn())
-    //            .hmsId(entity.getHmsId())
-    //            .key(entity.getHmsKey())
-    //            .level(entity.getLevel())
-    //            .module(entity.getModule())
-    //            .messageEn(entity.getMessageEn())
-    //            .messageZh(entity.getMessageZh())
-    //            .build();
     //}
 
     ///**
@@ -279,11 +265,51 @@ public class DeviceHmsService : IDeviceHmsService
     {
         // TODO:
 
-        return null;
+        var deviceHmsEntities = await _deviceHmsGenericRepository.GetQueryable()
+                                                                 .Where(entity => (request.SerialNumber!.Contains(entity.SerialNumber) || 
+                                                                                  (entity.CreateTime > request.BeginTime && entity.CreateTime < request.EndTime)) &&
+                                                                                  entity.UpdateTime.HasValue &&                 
+                                                                                  entity.UpdateTime == request.UpdateTime &&
+                                                                                  entity.Level == request.Level)
+                                                                 .Skip(request.Page * request.PageSize)
+                                                                 .Take(request.PageSize)
+                                                                 .OrderByDescending(entity => entity.CreateTime)
+                                                                 .ToArrayAsync();
+
+        var total = await _deviceHmsGenericRepository.GetCountAsync(entity => (request.SerialNumber!.Contains(entity.SerialNumber) ||
+                                                                              (entity.CreateTime > request.BeginTime && entity.CreateTime < request.EndTime)) &&
+                                                                              entity.UpdateTime.HasValue &&
+                                                                              entity.UpdateTime == request.UpdateTime && 
+                                                                              entity.Level == request.Level);
+        
+        var deviceHms = _mapper.Map<IEnumerable<DeviceHms>>(deviceHmsEntities);
+
+        var response = new PaginationResponse<DeviceHms> { 
+            List = deviceHms, 
+            Pagination = new Pagination { 
+                Page = request.Page, 
+                PageSize = request.PageSize, 
+                Total = total 
+            } 
+        };
+
+        return response;
     }
 
     public async Task UpdateUnreadHmsAsync(string serialNumber)
     {
-        // TODO:
+        var entity = await _deviceHmsGenericRepository.FirstOrDefaultAsync(x => x.SerialNumber == serialNumber);
+        if (entity == null)
+        {
+            _logger.LogError("Device Hms is not found.");
+        }
+
+        entity!.UpdateTime = 0L;
+
+        await _deviceHmsGenericRepository.UpdateAsync(entity!);
+
+        // Delete unread messages cached in redis.
+        var key = $"{RedisConst.HmsPrefix}{serialNumber}";
+        RedisOpsUtils.Delete(key);
     }
 }

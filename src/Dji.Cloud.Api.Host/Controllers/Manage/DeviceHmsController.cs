@@ -71,9 +71,11 @@ public class DeviceHmsController : ControllerBase
      ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetDeviceHmsAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
     {
+        // TODO:
+
         var request = new DeviceHmsQueryRequest {
-            SerialNumber = serialNumber,
-            UpdateTime = DateTime.FromBinary(0L)
+            //SerialNumber = serialNumber,
+            //UpdateTime = DateTime.FromBinary(0L)
         };
 
         var devices = await _service.GetDeviceHmsAsync(workspaceId, request);
