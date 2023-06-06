@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Dji.Cloud.Application.Abstracts.Configurations;
+using Dji.Cloud.Application.Commands.Manage;
 using Dji.Cloud.Application.Validators;
 using Dji.Cloud.Infrastructure.Host.Configurations;
 using FluentValidation;
@@ -38,7 +39,7 @@ builder.Services.ConfigureServices();
 builder.Services.AddValidatorsFromAssemblyContaining<UserLoginRequestValidator>();
 
 // Configure Mediator R
-builder.Services.AddMediatR(configure => configure.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UserLoginCommand).GetTypeInfo().Assembly));
 
 // Configure Api Versioning
 builder.Services.AddApiVersioning(options =>

@@ -125,16 +125,16 @@ public class UserService : IUserService
     /// <summary>
     /// Login user
     /// </summary>
-    /// <param name="request">user login request</param>
+    /// <param name="command">user login command</param>
     /// <returns>user</returns>
-    public async Task<BaseResponse<User>> LoginAsync(UserLoginRequest request)
+    public async Task<BaseResponse<User>> LoginAsync(string userName, string password, int flag)
     {
-        _logger.LogInformation($"{nameof(LoginAsync)} was called with User Name: {request.UserName}.");
+        _logger.LogInformation($"{nameof(LoginAsync)} was called with User Name: {userName}.");
 
         // Check user
         BaseResponse<User> response;
 
-        var userEntity = await GetUserAsync(request.UserName!);
+        var userEntity = await GetUserAsync(userName!);
         if (userEntity == null)
         {
             const string message = "Invalid User Name";
@@ -142,14 +142,14 @@ public class UserService : IUserService
             _logger.LogError(message);
             response = BaseResponse<User>.Error((int)HttpStatusCode.Unauthorized, message);
         }
-        else if (request.Flag != userEntity?.UserType)
+        else if (flag != userEntity?.UserType)
         {
             const string message = "The account type does not match.";
 
             _logger.LogError(message);
             response = BaseResponse<User>.Error((int)HttpStatusCode.Unauthorized, message);
         }
-        else if (request.Password != userEntity?.Password)
+        else if (password != userEntity?.Password)
         {
             const string message = "Invalid Password.";
 
@@ -179,7 +179,7 @@ public class UserService : IUserService
             }
         }
 
-        _logger.LogInformation($"{nameof(LoginAsync)} was getting user successfully with User Name: {request.UserName}.");
+        _logger.LogInformation($"{nameof(LoginAsync)} was getting user successfully with User Name: {userName}.");
 
         return response;
     }

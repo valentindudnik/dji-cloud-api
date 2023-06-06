@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Dji.Cloud.Application.Abstracts.Requests.Manage;
+using Dji.Cloud.Application.Commands.Manage;
 using Dji.Cloud.Domain.Manage;
 using Dji.Cloud.Infrastructure.Abstracts.Entities.Manage;
 
@@ -8,6 +10,8 @@ public class UserProfile : Profile
 {
     public UserProfile()
     {
+        CreateMap<UserLoginRequest, UserLoginCommand>();
+
         CreateMap<UserEntity, User>()
             .ForMember(x => x.UserId, opt => opt.MapFrom(x => x.UserId))
             .ForMember(x => x.UserName, opt => opt.MapFrom(x => x.UserName))

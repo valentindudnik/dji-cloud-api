@@ -1,11 +1,10 @@
-﻿using Dji.Cloud.Application.Abstracts.Interfaces.Manage;
-using Dji.Cloud.Application.Abstracts.Requests.Manage;
+﻿using Dji.Cloud.Application.Abstracts.Requests.Manage;
 using Dji.Cloud.Application.Abstracts.Responses.Common;
 using Dji.Cloud.Infrastructure.Host.Extensions;
-using Dji.Cloud.Domain.Enums;
 using Dji.Cloud.Domain.Manage;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+using Dji.Cloud.Application.Abstracts.Interfaces.Common;
+using Dji.Cloud.Application.Commands.Manage;
 
 namespace Dji.Cloud.Api.Host.Controllers.Manage;
 
@@ -14,9 +13,9 @@ namespace Dji.Cloud.Api.Host.Controllers.Manage;
  Route("[area]/api/v{version:apiVersion}")]
 public class AccountController : ControllerBase
 {
-    private readonly IUserService _service;
+    private readonly IMediatorService _service;
 
-    public AccountController(IUserService service)
+    public AccountController(IMediatorService service)
     {
         _service = service;
     }
@@ -29,8 +28,8 @@ public class AccountController : ControllerBase
     [HttpPost("login"),
      ProducesResponseType(typeof(BaseResponse<User>), StatusCodes.Status200OK)]
     public async Task<IActionResult> LoginAsync([FromBody] UserLoginRequest request)
-    {
-        var response = await _service.LoginAsync(request);
+    { 
+        var response = await _service.SendAsync<UserLoginRequest, UserLoginCommand, BaseResponse<User>>(request);
 
         return Ok(response);
     }
@@ -43,14 +42,11 @@ public class AccountController : ControllerBase
      ProducesResponseType(typeof(BaseResponse<User>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RefreshTokenAsync()
     {
-        BaseResponse<User> response;
-
         var token = Request.Headers.GetToken();
 
-        var user = await _service.RefreshTokenAsync(token);
+        var command = new RefreshTokenCommand { Token = token };
 
-        response = !string.IsNullOrEmpty(user.AccessToken) ? BaseResponse<User>.Success(user)
-                                                           : BaseResponse<User>.Error((int)HttpStatusCode.Unauthorized, CommonErrors.NoToken.GetDescription());
+        var response = await _service.SendAsync<RefreshTokenCommand, BaseResponse<User>>(command);
 
         return Ok(response);
     }

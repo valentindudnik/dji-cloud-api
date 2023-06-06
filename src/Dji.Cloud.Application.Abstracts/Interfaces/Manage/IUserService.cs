@@ -10,9 +10,9 @@ public interface IUserService
     /// <summary>
     /// Verify the username and password to log in.
     /// </summary>
-    /// <param name="request">request</param>
+    /// <param name="command">command</param>
     /// <returns></returns>
-    Task<BaseResponse<User>> LoginAsync(UserLoginRequest request);
+    Task<BaseResponse<User>> LoginAsync(string userName, string password, int flag);
 
     /// <summary>
     /// Query user's details based on User Name.
