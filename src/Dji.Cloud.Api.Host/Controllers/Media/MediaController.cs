@@ -26,10 +26,7 @@ public class MediaController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpPost("{workspaceId}/fast-upload"),
-     ProducesResponseType(typeof(string), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public async Task<IActionResult> FastUploadAsync([FromRoute] string workspaceId, [FromBody] FileUploadRequest request) 
     {
         var isExists = await _service.FastUploadAsync(workspaceId, request.Fingerprint!);
@@ -47,10 +44,7 @@ public class MediaController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpPost("{workspaceId}/upload-callback"),
-     ProducesResponseType(typeof(string), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public async Task<IActionResult> UploadCallbackAsync([FromRoute] string workspaceId, [FromBody] FileUploadRequest request)
     {
         await _service.SaveMediaFileAsync(workspaceId, request);

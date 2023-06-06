@@ -35,10 +35,7 @@ public class DeviceLogsController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/devices/{serialNumber}/logs-uploaded"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceLogs>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceLogs>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUploadedLogsAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber, [FromQuery] DeviceLogsQueryRequest request)
     {
         var paginationResponse = await _deviceLogsService.GetUploadedLogsAsync(serialNumber, request);
@@ -63,10 +60,7 @@ public class DeviceLogsController : ControllerBase
     //    }
 
     [HttpGet("{workspaceId}/devices/{serialNumber}/logs"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceLogs>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceLogs>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLogsBySerialNumberAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
     {
         // TODO:

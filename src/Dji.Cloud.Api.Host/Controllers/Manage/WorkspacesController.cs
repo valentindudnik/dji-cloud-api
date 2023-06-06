@@ -26,10 +26,7 @@ public class WorkspacesController : ControllerBase
     /// </summary>
     /// <returns>the workspace</returns>
     [HttpGet("current"),
-     ProducesResponseType(typeof(Workspace), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(Workspace), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetWorkspaceAsync()
     {
         var tokenInfo = _tokenService.GetTokenInfo(Request.Headers.GetToken());

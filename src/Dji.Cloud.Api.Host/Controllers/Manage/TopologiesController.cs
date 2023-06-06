@@ -23,10 +23,7 @@ public class TopologiesController : ControllerBase
     /// <param name="workspaceId">the workspace id</param>
     /// <returns>the list of topologies</returns>
     [HttpGet("{workspaceId}/devices/topologies"),
-     ProducesResponseType(typeof(IEnumerable<Topology>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(IEnumerable<Topology>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDevicesTopologiesForPilotAsync([FromRoute] string workspaceId) 
     {
         var deviceTopologies = await _service.GetDeviceTopologiesAsync(workspaceId);

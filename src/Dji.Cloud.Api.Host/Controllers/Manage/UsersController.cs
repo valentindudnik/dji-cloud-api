@@ -28,10 +28,7 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns>the user</returns>
     [HttpGet("current"),
-     ProducesResponseType(typeof(PaginationResponse<User>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(PaginationResponse<User>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUserInfoAsync()
     {
         var tokenInfo = _tokenService.GetTokenInfo(Request.Headers.GetToken());
@@ -48,10 +45,7 @@ public class UsersController : ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/users"),
-     ProducesResponseType(typeof(PaginationResponse<UserInfo>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(PaginationResponse<UserInfo>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUsersAsync([FromRoute] string workspaceId, [FromQuery] PaginationRequest request)
     {
         var response = await _userService.GetUsersByWorkspaceIdAsync(workspaceId, request);
@@ -67,10 +61,7 @@ public class UsersController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns>The status of user update</returns>
     [HttpPut("{workspaceId}/users/{userId}"),
-     ProducesResponseType(typeof(BaseResponse<object>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateUserAsync([FromRoute] string workspaceId, [FromRoute] string userId, [FromBody] UserRequest request)
     {
         var status = await _userService.UpdateUserAsync(workspaceId, userId, request);

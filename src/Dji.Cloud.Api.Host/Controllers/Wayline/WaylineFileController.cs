@@ -34,10 +34,7 @@ public class WaylineFileController : ControllerBase
     /// <param name="request">request</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/waylines"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<WaylineFile>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<WaylineFile>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetWaylinesAsync([FromRoute] string workspaceId, [FromQuery] WaylineQueryRequest request) 
     {
         var response = await _service.GetWaylinesAsync(workspaceId, request);
@@ -53,10 +50,7 @@ public class WaylineFileController : ControllerBase
     /// <param name="waylineId">wayline id</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/waylines/{waylineId}/url"),
-     ProducesResponseType(typeof(string), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFileUrlAsync([FromRoute] string workspaceId, [FromRoute] string waylineId)
     {
         var response = await _service.GetFileUrlAsync(workspaceId, waylineId);
@@ -72,10 +66,7 @@ public class WaylineFileController : ControllerBase
     /// <param name="waylineFileUpload">wayline file upload</param>
     /// <returns></returns>
     [HttpPost("{workspace_id}/upload-callback"),
-     ProducesResponseType(typeof(string), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public async Task<IActionResult> UploadCallBackAsync([FromRoute] string workspaceId, [FromBody] WaylineFileUpload waylineFileUpload)
     {
         // TODO:

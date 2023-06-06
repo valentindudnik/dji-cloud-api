@@ -27,10 +27,7 @@ public class AccountController : ControllerBase
     /// <param name="request">the user login request</param>
     /// <returns>token</returns>
     [HttpPost("login"),
-     ProducesResponseType(typeof(BaseResponse<User>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<User>), StatusCodes.Status200OK)]
     public async Task<IActionResult> LoginAsync([FromBody] UserLoginRequest request)
     {
         var response = await _service.LoginAsync(request);
@@ -40,13 +37,10 @@ public class AccountController : ControllerBase
 
     /// <summary>
     /// Refresh token
-    /// </summary>
+    /// </summary> 
     /// <returns>token</returns>
     [HttpPost("token/refresh"),
-     ProducesResponseType(typeof(BaseResponse<User>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<User>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RefreshTokenAsync()
     {
         BaseResponse<User> response;

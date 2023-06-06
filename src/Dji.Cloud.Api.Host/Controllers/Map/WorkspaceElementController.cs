@@ -8,10 +8,7 @@ namespace Dji.Cloud.Api.Host.Controllers.Map;
 public class WorkspaceElementController : ControllerBase
 {
     [HttpGet("{workspaceId}/element-groups"),
-     ProducesResponseType(typeof(IEnumerable<Group>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(IEnumerable<Group>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetElementsAsync([FromRoute] string workspaceId)
     {
         // TODO:

@@ -24,10 +24,7 @@ public class DevicesController : ControllerBase
     /// <param name="workspaceId">workspace id</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/devices"),
-     ProducesResponseType(typeof(IEnumerable<Device>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(IEnumerable<Device>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDevicesAsync([FromRoute] string workspaceId)
     {
         var response = await _service.GetDevicesAsync(workspaceId);
@@ -43,10 +40,7 @@ public class DevicesController : ControllerBase
     /// <param name="device">device</param>
     /// <returns>status of binding</returns>
     [HttpPost("{serialNumber}/binding"),
-     ProducesResponseType(typeof(bool), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     public async Task<IActionResult> BindDeviceAsync([FromRoute] string serialNumber, [FromBody] Device device)
     {
         var response = await _service.BindDeviceAsync(serialNumber, device);
@@ -62,10 +56,7 @@ public class DevicesController : ControllerBase
     /// <param name="serialNumber">serial number</param>
     /// <returns></returns>
     [HttpGet("{worksapceId}/devices/{serialNumber}"),
-     ProducesResponseType(typeof(Device), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDeviceAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
     {
         var device = await _service.GetDeviceAsync(serialNumber);
@@ -83,10 +74,7 @@ public class DevicesController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/devices/bound"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<Device>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<Device>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetBoundDevicesWithDomainAsync([FromRoute] string workspaceId, [FromBody] GetBoundDevicesRequest request) 
     {
         var devices = await _service.GetBoundDevicesWithDomainAsync(workspaceId, request.Page, request.PageSize, request.Domain);
@@ -102,10 +90,7 @@ public class DevicesController : ControllerBase
     /// <param name="serialNumber">the serial number</param>
     /// <returns></returns>
     [HttpDelete("{serialNumber}/unbinding"),
-     ProducesResponseType(typeof(BaseResponse<Device>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<Device>), StatusCodes.Status200OK)]
     public async Task<IActionResult> UnbindingDeviceAsync([FromRoute] string serialNumber) 
     {
         await _service.UnbindDeviceAsync(serialNumber);
@@ -123,10 +108,7 @@ public class DevicesController : ControllerBase
     /// <param name="device">the device information</param>
     /// <returns></returns>
     [HttpPut("{workspaceId}/devices/{serialNumber}"),
-     ProducesResponseType(typeof(BaseResponse<Device>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<Device>), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateDeviceAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber, [FromBody] Device device)
     {
         var status = await _service.UpdateDeviceAsync(workspaceId, serialNumber, device);

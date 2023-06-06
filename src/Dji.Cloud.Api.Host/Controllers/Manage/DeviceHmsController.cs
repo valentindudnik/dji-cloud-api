@@ -25,10 +25,7 @@ public class DeviceHmsController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/devices/hms"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceHms>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceHms>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetHmsInfoAsync([FromRoute] string workspaceId, [FromQuery] DeviceHmsQueryRequest request)
     {
         var devices = await _service.GetDeviceHmsAsync(workspaceId, request);
@@ -45,10 +42,7 @@ public class DeviceHmsController : ControllerBase
     /// <param name="serialNumber">the serial number</param>
     /// <returns></returns>
     [HttpPut("{workspaceId}/devices/hms/{serialNumber}"),
-     ProducesResponseType(typeof(BaseResponse<DeviceHms>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<DeviceHms>), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateUnreadHmsAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
     {
         await _service.UpdateUnreadHmsAsync(serialNumber);
@@ -65,10 +59,7 @@ public class DeviceHmsController : ControllerBase
     /// <param name="serialNumber">the serial number</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/devices/hms/{serialNumber}"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceHms>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceHms>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDeviceHmsAsync([FromRoute] string workspaceId, [FromRoute] string serialNumber)
     {
         // TODO:

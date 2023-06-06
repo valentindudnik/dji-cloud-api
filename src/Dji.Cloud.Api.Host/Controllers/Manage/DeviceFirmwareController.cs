@@ -28,10 +28,7 @@ public class DeviceFirmwareController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("firmware-release-notes/latest"),
-     ProducesResponseType(typeof(BaseResponse<IEnumerable<string>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<IEnumerable<string>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLatestFirmwareNoteAsync([FromQuery] GetLatestFirmwareNoteRequest request)
     {
         var releaseNotes = new List<DeviceFirmwareNote>();
@@ -60,10 +57,7 @@ public class DeviceFirmwareController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpGet("{workspaceId}/firmwares"),
-     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceFirmware>>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<PaginationResponse<DeviceFirmware>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFirmwaresAsync([FromRoute] string workspaceId, [FromQuery] DeviceFirmwareQueryRequest request)
     {
         var devices = await _deviceFirmwareService.GetFirmwaresAsync(workspaceId, request);
@@ -80,10 +74,7 @@ public class DeviceFirmwareController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpPost("{workspaceId}/firmwares/file/upload"),
-     ProducesResponseType(typeof(BaseResponse<DeviceFirmware>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<DeviceFirmware>), StatusCodes.Status200OK)]
     public async Task<IActionResult> ImportFirmwareFileAsync([FromRoute] string workspaceId, [FromForm] DeviceFirmwareUpdateRequest request)
     {
         var response = BaseResponse<DeviceFirmware>.Success();
@@ -115,10 +106,7 @@ public class DeviceFirmwareController : ControllerBase
     /// <param name="request">the request</param>
     /// <returns></returns>
     [HttpPut("{workspaceId}/firmwares/{firmwareId}"),
-     ProducesResponseType(typeof(BaseResponse<DeviceFirmware>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(BaseResponse<DeviceFirmware>), StatusCodes.Status200OK)]
     public async Task<IActionResult> ChangeFirmwareStatusAsync([FromRoute] string workspaceId, [FromRoute] string firmwareId, [FromBody] DeviceFirmwareUpdateRequest request)
     {
         await _deviceFirmwareService.UpdateFirmwareInfoAsync(workspaceId, firmwareId, request);

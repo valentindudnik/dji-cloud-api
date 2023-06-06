@@ -27,10 +27,7 @@ public class LiveStreamsController : ControllerBase
     /// </summary>
     /// <returns>The live capacities</returns>
     [HttpGet("capacity"),
-     ProducesResponseType(typeof(IEnumerable<CapacityDevice>), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(IEnumerable<CapacityDevice>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLiveCapacityAsync()
     {
         // Get information about the current user.
@@ -51,10 +48,7 @@ public class LiveStreamsController : ControllerBase
     /// <param name="request">The live request</param>
     /// <returns></returns>
     [HttpPost("streams/start"),
-     ProducesResponseType(typeof(Live), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(Live), StatusCodes.Status200OK)]
     public async Task<IActionResult> LiveStartAsync([FromBody] LiveTypeRequest request)
     {
         var response = await _liveStreamService.LiveStartAsync(request);
@@ -68,10 +62,7 @@ public class LiveStreamsController : ControllerBase
     /// <param name="request">The live request</param>
     /// <returns></returns>
     [HttpPost("streams/stop"), 
-     ProducesResponseType(typeof(Device), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     public async Task<IActionResult> LiveStopAsync([FromBody] LiveTypeRequest request)
     {
         var response = await _liveStreamService.LiveStopAsync(request.VideoId!);
@@ -85,10 +76,7 @@ public class LiveStreamsController : ControllerBase
     /// <param name="request">The request</param>
     /// <returns></returns>
     [HttpPost("streams/update"),
-     ProducesResponseType(typeof(Device), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     public async Task<IActionResult> LiveSetQualityAsync([FromBody] LiveTypeRequest request)
     {
         var response = await _liveStreamService.LiveSetQualityAsync(request);
@@ -102,10 +90,7 @@ public class LiveStreamsController : ControllerBase
     /// <param name="request">The request</param>
     /// <returns></returns>
     [HttpPost("streams/switch"),
-     ProducesResponseType(typeof(Device), StatusCodes.Status200OK),
-     ProducesResponseType(StatusCodes.Status400BadRequest),
-     ProducesResponseType(StatusCodes.Status404NotFound),
-     ProducesResponseType(StatusCodes.Status500InternalServerError)]
+     ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     public async Task<IActionResult> LiveLensChangeAsync([FromBody] LiveTypeRequest request) 
     {
         var response = await _liveStreamService.LiveLensChangeAsync(request);
